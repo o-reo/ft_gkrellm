@@ -5,12 +5,13 @@
 
 class CursesDisplay : public IMonitorDisplay {
 private:
+  CursesDisplay(CursesDisplay const &src);
+  CursesDisplay &operator=(CursesDisplay const &src);
+
 protected:
 public:
   CursesDisplay();
-  // CursesDisplay(CursesDisplay const &src);
   ~CursesDisplay();
-  // CursesDisplay &operator=(CursesDisplay const &src);
   // virtual void addWidget()
 };
 

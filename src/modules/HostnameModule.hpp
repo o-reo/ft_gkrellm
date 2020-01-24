@@ -3,8 +3,7 @@
 #include "AMonitorModule.hpp"
 #include "Logger.hpp"
 #include <string>
-
-class HostnameModule : public AMonitorModule<std::string>
+class HostnameModule : public AMonitorModule<std::vector<std::string> >
 {
   private:
   protected:
@@ -13,7 +12,6 @@ class HostnameModule : public AMonitorModule<std::string>
 	HostnameModule(HostnameModule const &src);
 	~HostnameModule();
 	HostnameModule &operator=(HostnameModule const &src);
-	virtual std::string getData();
+	virtual std::vector<std::string> getData();
 };
-
 #endif

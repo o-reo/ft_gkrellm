@@ -1,5 +1,5 @@
 CXX = clang++
-CXXFLAGS = -Wall -Werror -Wextra  -F$(HOME)/Library/frameworks
+CXXFLAGS = -Wall -Werror -Wextra --std=c++98 -F$(HOME)/Library/frameworks
 
 INCLUDES = -I src/ -I src/core/ -I src/modules/ -I src/display/ -I src/display/ncurses -I src/display/ncurses/widgets -I src/display/sfml
 
@@ -7,8 +7,6 @@ RAW_SRC = main										\
 		core/Logger									\
 		modules/HostnameModule						\
 		display/ncurses/CursesDisplay				\
-		display/ncurses/widgets/CursesWidgetHost	\
-		display/ncurses/widgets/CursesWidgetDate	\
 		core/Monitor								\
 		modules/OSInfoModule						\
 		modules/CpuModule							\
@@ -24,10 +22,10 @@ EXEC = ft_gkrellm
 all: $(EXEC)
 
 $(EXEC): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJ) $(LDFLAGS) $(LDLIBS)
+	@$(CXX) $(CXXFLAGS) -o $@ $(OBJ) $(LDFLAGS) $(LDLIBS)
 
 ./build/%.o: ./src/%.cpp
-	$(CXX) $(CXXFLAGS) -o $@ -c $< $(INCLUDES)
+	@$(CXX) $(CXXFLAGS) -o $@ -c $< $(INCLUDES)
 
 clean:
 	/bin/rm $(OBJ)

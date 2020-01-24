@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   CursesWidgetHost.cpp                             .::    .:/ .      .::   */
+/*   coords.h                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: bnoyer <bnoyer@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/01/24 17:12:59 by bnoyer       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/24 17:54:03 by bnoyer      ###    #+. /#+    ###.fr     */
+/*   Created: 2020/01/24 20:09:54 by bnoyer       #+#   ##    ##    #+#       */
+/*   Updated: 2020/01/24 20:20:27 by bnoyer      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#include "CursesWidgetHost.hpp"
+#ifndef COORDS_H
+#define COORDS_H
 
-CursesWidgetHost::CursesWidgetHost(void){}
-
-CursesWidgetHost::~CursesWidgetHost(void){}
-
-void CursesWidgetHost::displayData(void)
+struct coords
 {
-	std::string data = this->_hostname.getData();
-	std::cout << data << std::endl;
-}
+	coords(unsigned int abs, unsigned int ord) : x(abs), y(ord){}
+	int x;
+	int y;
+};
 
+#endif
