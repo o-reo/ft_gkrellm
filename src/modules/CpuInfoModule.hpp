@@ -3,8 +3,9 @@
 
 #include "AMonitorModule.hpp"
 #include <string>
+#include <vector>
 
-class CpuInfoModule : public AMonitorModule<std::string>
+class CpuInfoModule : public AMonitorModule<std::vector<std::string> >
 {
   private:
 	CpuInfoModule &operator=(CpuInfoModule const &src);
@@ -14,7 +15,7 @@ class CpuInfoModule : public AMonitorModule<std::string>
   public:
 	CpuInfoModule();
 	~CpuInfoModule();
-	virtual std::string getData();
+	virtual std::vector<std::string> getData();
 };
 
 #endif

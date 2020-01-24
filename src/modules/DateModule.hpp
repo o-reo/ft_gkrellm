@@ -3,8 +3,9 @@
 
 #include "AMonitorModule.hpp"
 #include <ctime>
+#include <vector>
 
-class DateModule : public AMonitorModule<std::time_t>
+class DateModule : public AMonitorModule<std::vector<std::time_t> >
 {
   private:
   protected:
@@ -13,7 +14,7 @@ class DateModule : public AMonitorModule<std::time_t>
 	DateModule(DateModule const &src);
 	~DateModule();
 	DateModule &operator=(DateModule const &src);
-	virtual std::time_t getData();
+	virtual std::vector<std::time_t> getData();
 };
 
 #endif
