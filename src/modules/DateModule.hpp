@@ -1,0 +1,19 @@
+#ifndef DATEMODULE_HPP
+#define DATEMODULE_HPP
+
+#include "AMonitorModule.hpp"
+#include <ctime>
+
+class DateModule : public AMonitorModule<std::time_t>
+{
+  private:
+  protected:
+  public:
+	DateModule();
+	DateModule(DateModule const &src);
+	~DateModule();
+	DateModule &operator=(DateModule const &src);
+	virtual std::time_t getData();
+};
+
+#endif

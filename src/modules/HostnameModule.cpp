@@ -12,6 +12,6 @@ std::string HostnameModule::getData() {
   gethostname(hostname, _SC_HOST_NAME_MAX);
   getlogin_r(username, _SC_LOGIN_NAME_MAX);
   std::ostringstream st;
-  st << hostname << "  " << username << std::endl;
+  st << hostname << " - " << username << std::endl;
   return st.str();
 }

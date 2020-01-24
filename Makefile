@@ -9,7 +9,10 @@ RAW_SRC = main										\
 		display/ncurses/CursesDisplay				\
 		display/ncurses/widgets/CursesWidgetHost	\
 		display/ncurses/widgets/CursesWidgetDate	\
-		core/Monitor
+		core/Monitor								\
+		modules/OSInfoModule						\
+		modules/CpuModule							\
+		modules/DateModule
 
 SRC = $(addprefix src/, $(addsuffix .cpp, $(RAW_SRC)))
 OBJ = $(addprefix build/, $(addsuffix .o, $(RAW_SRC)))
