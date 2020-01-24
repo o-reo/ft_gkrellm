@@ -1,7 +1,7 @@
 ---
-BasedOnStyle: LLVM
+BasedOnStyle: Microsoft
 ColumnLimit: '120'
 Standard: Cpp03
-UseTab: Never
+UseTab: Always
 
 ...
