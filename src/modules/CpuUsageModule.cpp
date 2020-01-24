@@ -1,9 +1,8 @@
-#include "CpuModule.hpp"
-#include <mach/mach_host.h>
+#include "CpuUsageModule.hpp"
 #include <mach/mach_host.h>
 #include <unistd.h>
 
-CpuModule::CpuModule() : ticks()
+CpuUsageModule::CpuUsageModule() : ticks()
 {
 	unsigned int cpu_count;
 	processor_cpu_load_info_t cpu_load;
@@ -18,7 +17,7 @@ CpuModule::CpuModule() : ticks()
 // {
 // }
 
-CpuModule::~CpuModule()
+CpuUsageModule::~CpuUsageModule()
 {
 }
 
@@ -26,7 +25,7 @@ CpuModule::~CpuModule()
 // {
 // }
 
-std::vector<int> CpuModule::getData()
+std::vector<int> CpuUsageModule::getData()
 {
 	unsigned int cpu_count;
 	processor_cpu_load_info_t cpu_load;

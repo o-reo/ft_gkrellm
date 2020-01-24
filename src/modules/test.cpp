@@ -1,11 +1,13 @@
-#include "CpuModule.hpp"
+#include "CpuInfoModule.hpp"
+#include "CpuUsageModule.hpp"
 #include <chrono>
 #include <iostream>
 #include <thread>
 
 int main(void)
 {
-	CpuModule mod;
+	/*
+	CpuUsageModule usagemod;
 	for (int i = 0; i < 1000; i++)
 	{
 		std::vector<int> load = mod.getData();
@@ -14,4 +16,8 @@ int main(void)
 			std::cout << "core: " << k + 1 << " load: " << load[k] << " | ";
 		std::cout << std::endl;
 	}
+	*/
+	CpuInfoModule infomod;
+	std::cout << infomod.getData() << std::endl; 
+	return (0);
 }
