@@ -35,3 +35,6 @@ build/*
 *.log
 .vscode/
 ft_gkrellm
+
+
+rush01.sublime*
