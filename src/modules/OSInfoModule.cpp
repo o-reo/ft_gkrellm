@@ -1,16 +1,20 @@
 #include "OSInfoModule.hpp"
 #include <vector>
 
-std::vector<std::string> OSInfoModule::getData()
+OSInfoModule::OSInfoModule() : AMonitorModule("OS Details")
+{
+}
+
+std::vector<std::pair<std::string, std::string> > OSInfoModule::getData()
 {
 	utsname sysinf;
 	uname(&sysinf);
-	std::vector<std::string> res;
+	std::vector<std::pair<std::string, std::string> > res;
 
-	res.push_back(sysinf.sysname);
-	res.push_back(sysinf.nodename);
-	res.push_back(sysinf.release);
-	res.push_back(sysinf.version);
-	res.push_back(sysinf.machine);
+	res.push_back(std::make_pair<std::string, std::string>("System", sysinf.sysname));
+	res.push_back(std::make_pair<std::string, std::string>("Node", sysinf.nodename));
+	res.push_back(std::make_pair<std::string, std::string>("Release", sysinf.release));
+	res.push_back(std::make_pair<std::string, std::string>("Version", sysinf.version));
+	res.push_back(std::make_pair<std::string, std::string>("Machine", sysinf.machine));
 	return res;
 }

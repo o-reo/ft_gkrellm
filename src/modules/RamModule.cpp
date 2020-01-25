@@ -7,7 +7,7 @@
 #include <sstream>
 #include <sys/sysctl.h>
 
-RamModule::RamModule()
+RamModule::RamModule() : AMonitorModule("Ram Usage")
 {
 }
 
@@ -24,7 +24,7 @@ std::vector<int> RamModule::getData()
 	char buffer[1024];
 	size_t b_size = sizeof(buffer);
 	if (sysctlbyname("hw.memsize", &buffer, &b_size, 0, 0) < 0)
-		throw std::runtime_error("Could not reach cpu information");
+		throw std::runtime_error("Could not reach ram information");
 	std::istringstream tot_info(buffer);
 	int memsize;
 	tot_info >> memsize;
@@ -48,14 +48,6 @@ std::vector<int> RamModule::getData()
 		throw std::runtime_error("Error getting system statistics");
 
 	double total = vmstat.wire_count + vmstat.active_count + vmstat.inactive_count + vmstat.free_count;
-	double wired = vmstat.wire_count / total;
-	double active = vmstat.active_count / total;
-	double inactive = vmstat.inactive_count / total;
-	double free = vmstat.free_count;
-
-	task_basic_info_64_data_t info;
-	unsigned size = sizeof(info);
-	task_info(mach_task_self(), TASK_BASIC_INFO_64, (task_info_t)&info, &size);
 	meminfo.push_back(total * pagesize / unit);
 	return meminfo;
 }

@@ -3,6 +3,7 @@
 
 #include "IMonitorDisplay.hpp"
 #include "HostnameModule.hpp"
+#include "CpuInfoModule.hpp"
 #include "widgets/SFMLWidgetText.tpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>

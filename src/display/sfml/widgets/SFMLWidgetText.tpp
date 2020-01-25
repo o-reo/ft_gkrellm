@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <string>
+#include <utility>
 
 template <class T> class SFMLWidgetText : public ASFMLWidget<T>
 {
@@ -19,16 +20,21 @@ template <class T> class SFMLWidgetText : public ASFMLWidget<T>
 
 	virtual void displayData(void)
 	{
-		std::vector<std::string> v = this->getModName().getData();
-		unsigned int height = v.size();
+		std::vector<std::pair<std::string, std::string> > v = this->getModName().getData();
+		coords avail(this->getBottomRight().x - this->getTopLeft().x, this->getBottomRight().y - this->getTopLeft().y);
+		
 		this->_texts.clear();
+		this->_texts.push_back(sf::Text(this->getModName().getName(), *(this->_font), 24));
 		for (int i = 0; i < v.size(); ++i)
 		{
-			this->_texts.push_back(sf::Text(v[i], *(this->_font), 24));
-			unsigned int w = v[i].size();
-			unsigned int w_avail = this->getBottomRight().x - this->getTopLeft().x;
-			this->_texts.back().setPosition(80, 150 + 20 * i);
-			std::cout << v[i] << std::endl;
+			// Label
+			this->_texts.push_back(sf::Text(v[i].first, *(this->_font), 22));
+			this->_texts.back().setPosition(5, this->getTopLeft().y + 25 * i);
+			this->getWin()->draw(this->_texts.back());
+
+			// Value
+			this->_texts.push_back(sf::Text(v[i].second, *(this->_font), 22));
+			this->_texts.back().setPosition(80, this->getTopLeft().y + 25 * i);
 			this->getWin()->draw(this->_texts.back());
 		}
 	}

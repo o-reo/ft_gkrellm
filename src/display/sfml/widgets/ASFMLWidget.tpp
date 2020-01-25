@@ -20,12 +20,12 @@ template <class T> class ASFMLWidget
 
 	virtual void displayData(void) = 0;
 
-	void setTopleft(coords const newCoord)
+	void setTopLeft(coords const newCoord)
 	{
 		this->_topleft = newCoord;
 	}
 
-	void setBottomright(coords const newCoord)
+	void setBottomRight(coords const newCoord)
 	{
 		this->_bottomright = newCoord;
 	}

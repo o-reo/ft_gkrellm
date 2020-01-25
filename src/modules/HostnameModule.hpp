@@ -2,8 +2,9 @@
 #define HOSTNAMEMODULE_HPP
 #include "AMonitorModule.hpp"
 #include <string>
+#include <utility>
 
-class HostnameModule : public AMonitorModule<std::vector<std::string> >
+class HostnameModule : public AMonitorModule<std::vector<std::pair<std::string, std::string> > >
 {
   private:
   protected:
@@ -12,6 +13,6 @@ class HostnameModule : public AMonitorModule<std::vector<std::string> >
 	HostnameModule(HostnameModule const &src);
 	~HostnameModule();
 	HostnameModule &operator=(HostnameModule const &src);
-	virtual std::vector<std::string> getData();
+	virtual std::vector<std::pair<std::string, std::string> > getData();
 };
 #endif

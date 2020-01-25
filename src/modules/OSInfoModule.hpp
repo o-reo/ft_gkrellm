@@ -5,7 +5,7 @@
 #include <string>
 #include <sys/utsname.h>
 
-class OSInfoModule : public AMonitorModule<std::vector<std::string> >
+class OSInfoModule : public AMonitorModule<std::vector<std::pair<std::string, std::string> > >
 {
   private:
 	OSInfoModule &operator=(OSInfoModule const &src);
@@ -15,7 +15,7 @@ class OSInfoModule : public AMonitorModule<std::vector<std::string> >
   public:
 	OSInfoModule();
 	~OSInfoModule();
-	virtual std::vector<std::string> getData();
+	virtual std::vector<std::pair<std::string, std::string> > getData();
 };
 
 #endif

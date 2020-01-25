@@ -2,7 +2,7 @@
 #include <mach/mach_host.h>
 #include <unistd.h>
 
-CpuUsageModule::CpuUsageModule() : ticks()
+CpuUsageModule::CpuUsageModule() : AMonitorModule("CPU Usage"), ticks()
 {
 	unsigned int cpu_count;
 	processor_cpu_load_info_t cpu_load;
@@ -13,17 +13,9 @@ CpuUsageModule::CpuUsageModule() : ticks()
 		this->ticks.push_back(std::make_pair<unsigned long long int, unsigned long long int>(0, 0));
 }
 
-// CpuModule::CpuModule(CpuModule const &src)
-// {
-// }
-
 CpuUsageModule::~CpuUsageModule()
 {
 }
-
-// CpuModule &CpuModule::operator=(CpuModule const &src)
-// {
-// }
 
 std::vector<int> CpuUsageModule::getData()
 {

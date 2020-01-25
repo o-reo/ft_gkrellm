@@ -1,6 +1,6 @@
 #include "DateModule.hpp"
 
-DateModule::DateModule()
+DateModule::DateModule() : AMonitorModule("Time")
 {
 }
 

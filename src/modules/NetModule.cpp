@@ -1,6 +1,6 @@
 #include "NetModule.hpp"
 
-NetModule::NetModule()
+NetModule::NetModule() : AMonitorModule("Network Bandwidth")
 {
 }
 
