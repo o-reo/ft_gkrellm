@@ -1,5 +1,5 @@
 CXX = clang++
-CXXFLAGS = -Wall -Werror -Wextra --std=c++98 -F$(HOME)/Library/frameworks
+CXXFLAGS = -Wall -Werror -Wextra --std=c++98 -F$(HOME)/Library/Frameworks
 
 INCLUDES = -I src/ -I src/core/ -I src/modules/ -I src/display/ -I src/display/ncurses -I src/display/ncurses/widgets -I src/display/sfml
 
@@ -7,6 +7,7 @@ RAW_SRC = main										\
 		core/Logger									\
 		modules/HostnameModule						\
 		display/ncurses/CursesDisplay				\
+		display/sfml/SFMLDisplay					\
 		core/Monitor								\
 		modules/OSInfoModule						\
 		modules/CpuUsageModule						\

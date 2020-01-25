@@ -16,7 +16,10 @@
 
 struct coords
 {
-	coords(unsigned int abs, unsigned int ord) : x(abs), y(ord){}
+	coords() : x(0), y(0){};
+	coords(unsigned int abs, unsigned int ord) : x(abs), y(ord)
+	{
+	}
 	int x;
 	int y;
 };
