@@ -2,21 +2,26 @@
 #define IMONITORDISPLAY_HPP
 
 #include "IMonitorModule.hpp"
+#include "AWidget.hpp"
+#include "coords.h"
+#include "Config.hpp"
 
 class IMonitorDisplay
 {
   private:
+	IMonitorDisplay &operator=(IMonitorDisplay const &src);
+	IMonitorDisplay(IMonitorDisplay const &src);
+
   protected:
   public:
 	IMonitorDisplay()
 	{
 	}
-	// IMonitorDisplay(IMonitorDisplay const &src);
 	virtual ~IMonitorDisplay()
 	{
 	}
-	// IMonitorDisplay &operator=(IMonitorDisplay const &src);
-	// virtual void addWidget();
+	virtual AWidget *addWidget(Config::WIDGET_TYPE) = 0;
+	virtual void render() = 0;
 };
 
 #endif

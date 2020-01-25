@@ -18,9 +18,12 @@
 
 
 
+#include "SFMLDisplay.hpp"
 
 int main(void)
 {
+	SFMLDisplay dis;
+	dis.render();
 	CursesDisplay cursesDisp;
 	cursesDisp.render();
 	return (0);

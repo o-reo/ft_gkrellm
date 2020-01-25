@@ -25,7 +25,7 @@
 
 
 template <class T>
-class ACursesWidget
+class ACursesWidget : public AWidget
 {
 public:
 	ACursesWidget(coords tl, coords br) : _topLeft(tl), _bottomRight(br){}

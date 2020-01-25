@@ -2,11 +2,11 @@
 #define SFMLWIDGETTEXT_HPP
 
 #include "ASFMLWidget.tpp"
-#include <vector>
-
+#include "coords.h"
 #include <iostream>
 #include <string>
 #include <utility>
+#include <vector>
 
 template <class T> class SFMLWidgetText : public ASFMLWidget<T>
 {
@@ -22,7 +22,7 @@ template <class T> class SFMLWidgetText : public ASFMLWidget<T>
 	{
 		std::vector<std::pair<std::string, std::string> > v = this->getModName().getData();
 		coords avail(this->getBottomRight().x - this->getTopLeft().x, this->getBottomRight().y - this->getTopLeft().y);
-		
+
 		// Box
 		sf::RectangleShape border(sf::Vector2f(avail.x - 6, avail.y - 32));
 		border.setPosition(this->getTopLeft().x + 3, this->getTopLeft().y + 32);
@@ -30,7 +30,7 @@ template <class T> class SFMLWidgetText : public ASFMLWidget<T>
 		border.setOutlineColor(sf::Color::White);
 		border.setOutlineThickness(1.0f);
 		this->getWin()->draw(border);
-		
+
 		this->_texts.clear();
 		this->_texts.push_back(sf::Text(this->getModName().getName(), *(this->_font), 24));
 		this->_texts.back().setPosition((avail.x - 12 * this->getModName().getName().size()) / 2, this->getTopLeft().y);
@@ -48,6 +48,15 @@ template <class T> class SFMLWidgetText : public ASFMLWidget<T>
 			this->_texts.back().setPosition(125, 35 + this->getTopLeft().y + 25 * i);
 			this->getWin()->draw(this->_texts.back());
 		}
+	}
+
+	virtual coords getSize()
+	{
+		std::vector<std::pair<std::string, std::string> > v = this->getModName().getData();
+		coords cds;
+		cds.y = 35 + 25 * v.size();
+		cds.x = this->getBottomRight().x - this->getTopLeft().x;
+		return cds;
 	}
 
   private:

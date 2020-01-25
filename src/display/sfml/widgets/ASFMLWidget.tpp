@@ -5,10 +5,11 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
+#include <AWidget.hpp>
 #include <iostream>
 #include <string>
 
-template <class T> class ASFMLWidget
+template <class T> class ASFMLWidget : public AWidget
 {
   public:
 	ASFMLWidget(sf::RenderWindow *win) : _win(win)
@@ -49,6 +50,8 @@ template <class T> class ASFMLWidget
 	{
 		return (this->_win);
 	}
+
+	virtual coords getSize() = 0;
 
   private:
 	ASFMLWidget(void);

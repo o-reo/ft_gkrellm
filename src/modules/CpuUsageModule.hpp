@@ -8,8 +8,9 @@
 class CpuUsageModule : public AMonitorModule<std::vector<int> >
 {
   private:
+	std::vector<std::vector<int> > _avg;
 	std::vector<std::pair<unsigned long long int, unsigned long long int> > ticks;
-	
+
 	CpuUsageModule &operator=(CpuUsageModule const &src);
 	CpuUsageModule(CpuUsageModule const &src);
 

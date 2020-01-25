@@ -20,16 +20,6 @@ std::vector<int> RamModule::getData()
 	std::vector<int> meminfo;
 	// double unit = 1024 * 1024;
 
-	// Total Memory
-	char buffer[1024];
-	size_t b_size = sizeof(buffer);
-	if (sysctlbyname("hw.memsize", &buffer, &b_size, 0, 0) < 0)
-		throw std::runtime_error("Could not reach ram information");
-	std::istringstream tot_info(buffer);
-	int memsize;
-	tot_info >> memsize;
-	long total_ram = *reinterpret_cast<long *>(buffer);
-
 	// Used memory
 	int mib[6];
 	mib[0] = CTL_HW;
@@ -46,8 +36,8 @@ std::vector<int> RamModule::getData()
 	vm_statistics_data_t vmstat;
 	if (host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t)&vmstat, &count) != KERN_SUCCESS)
 		throw std::runtime_error("Error getting system statistics");
-
-	double total = vmstat.wire_count + vmstat.active_count + vmstat.inactive_count + vmstat.free_count;
-	meminfo.push_back(100.0f * (total * pagesize) / float(total_ram));
+	double total =
+		vmstat.wire_count + vmstat.inactive_count + vmstat.active_count + vmstat.speculative_count + vmstat.free_count;
+	meminfo.push_back(100.0f * float(vmstat.wire_count + vmstat.speculative_count + vmstat.active_count) / float(total));
 	return meminfo;
 }
