@@ -2,21 +2,20 @@
 #define OSINFOMODULE_HPP
 
 #include "AMonitorModule.hpp"
-#include <sys/utsname.h>
 #include <string>
-#include <sstream>
+#include <sys/utsname.h>
 
-class OSInfoModule : public AMonitorModule<std::string>
+class OSInfoModule : public AMonitorModule<std::vector<std::string> >
 {
   private:
-	OSInfoModule(OSInfoModule const &src);
 	OSInfoModule &operator=(OSInfoModule const &src);
+	OSInfoModule(OSInfoModule const &src);
 
   protected:
   public:
-	OSInfoModule(){}
-	~OSInfoModule(){}
-	virtual std::string getData();
+	OSInfoModule();
+	~OSInfoModule();
+	virtual std::vector<std::string> getData();
 };
 
 #endif

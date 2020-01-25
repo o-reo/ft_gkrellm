@@ -9,7 +9,7 @@ RAW_SRC = main										\
 		display/ncurses/CursesDisplay				\
 		core/Monitor								\
 		modules/OSInfoModule						\
-		modules/CpuModule							\
+		modules/CpuUsageModule						\
 		modules/DateModule
 
 SRC = $(addprefix src/, $(addsuffix .cpp, $(RAW_SRC)))

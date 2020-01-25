@@ -1,11 +1,16 @@
 #include "OSInfoModule.hpp"
+#include <vector>
 
-std::string OSInfoModule::getData()
+std::vector<std::string> OSInfoModule::getData()
 {
-	std::ostringstream st;
 	utsname sysinf;
 	uname(&sysinf);
-	st << sysinf.sysname << " | " << sysinf.nodename << " | " << sysinf.release << " | " << sysinf.version << " | "
-	   << sysinf.machine << std::endl;
-	return st.str();
+	std::vector<std::string> res;
+
+	res.push_back(sysinf.sysname);
+	res.push_back(sysinf.nodename);
+	res.push_back(sysinf.release);
+	res.push_back(sysinf.version);
+	res.push_back(sysinf.machine);
+	return res;
 }

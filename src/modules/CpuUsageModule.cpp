@@ -1,10 +1,8 @@
-#include "CpuModule.hpp"
-#include <fstream>
-#include <iostream>
-#include <mach/mach_host.h>
+#include "CpuUsageModule.hpp"
 #include <mach/mach_host.h>
 #include <unistd.h>
-CpuModule::CpuModule() : ticks()
+
+CpuUsageModule::CpuUsageModule() : ticks()
 {
 	unsigned int cpu_count;
 	processor_cpu_load_info_t cpu_load;
@@ -14,17 +12,20 @@ CpuModule::CpuModule() : ticks()
 	for (unsigned int i = 0; i < cpu_count; ++i)
 		this->ticks.push_back(std::make_pair<unsigned long long int, unsigned long long int>(0, 0));
 }
+
 // CpuModule::CpuModule(CpuModule const &src)
 // {
 // }
-CpuModule::~CpuModule()
+
+CpuUsageModule::~CpuUsageModule()
 {
 }
+
 // CpuModule &CpuModule::operator=(CpuModule const &src)
 // {
 // }
 
-std::vector<int> CpuModule::getData()
+std::vector<int> CpuUsageModule::getData()
 {
 	unsigned int cpu_count;
 	processor_cpu_load_info_t cpu_load;
@@ -39,9 +40,7 @@ std::vector<int> CpuModule::getData()
 		used += cpu_load[i].cpu_ticks[CPU_STATE_SYSTEM];
 		unsigned long long int total = used + cpu_load[i].cpu_ticks[CPU_STATE_IDLE];
 
-		load[i] = (100 * float(used - this->ticks[i].first) / float(total - this->ticks[i].second));
-		std::cout << used - this->ticks[i].first << std::endl;
-		std::cout << total << std::endl;
+		load[i] = (100.0f * float(used - this->ticks[i].first) / float(total - this->ticks[i].second));
 		this->ticks[i] = std::make_pair<unsigned long long int, unsigned long long int>(used, total);
 	}
 	return load;

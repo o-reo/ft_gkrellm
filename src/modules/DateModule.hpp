@@ -3,6 +3,7 @@
 
 #include "AMonitorModule.hpp"
 #include <ctime>
+#include <vector>
 
 class DateModule : public AMonitorModule<std::time_t>
 {
