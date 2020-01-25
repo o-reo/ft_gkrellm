@@ -22,10 +22,10 @@ EXEC = ft_gkrellm
 all: $(EXEC)
 
 $(EXEC): $(OBJ)
-	@$(CXX) $(CXXFLAGS) -o $@ $(OBJ) $(LDFLAGS) $(LDLIBS)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJ) $(LDFLAGS) $(LDLIBS)
 
 ./build/%.o: ./src/%.cpp
-	@$(CXX) $(CXXFLAGS) -o $@ -c $< $(INCLUDES)
+	$(CXX) $(CXXFLAGS) -o $@ -c $< $(INCLUDES)
 
 clean:
 	/bin/rm $(OBJ)

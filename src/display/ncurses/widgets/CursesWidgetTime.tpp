@@ -1,61 +1,51 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   CursesWidgetText.tpp                             .::    .:/ .      .::   */
+/*   CursesWidgetTime.tpp                             .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: bnoyer <bnoyer@le-101.fr>                  +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/24 17:10:46 by bnoyer       #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/25 01:12:02 by bnoyer      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/25 01:53:38 by bnoyer      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
-#ifndef CURSESWIDGETTEXT_TPP
-# define CURSESWIDGETTEXT_TPP
-
-// #include "HostnameModule.hpp"
+#ifndef CURSESWIDGETTIME_TPP
+# define CURSESWIDGETTIME_TPP
 
 #include "ACursesWidget.tpp"
-#include <vector>
 
 #include <string>
 #include <iostream>
 
 
 template <class T>
-class CursesWidgetText : public ACursesWidget<T>
+class CursesWidgetTime : public ACursesWidget<T>
 {
 public:
-	CursesWidgetText(WINDOW *win) : ACursesWidget<T>(win){}
-	~CursesWidgetText(void){}
+	CursesWidgetTime(WINDOW *win) : ACursesWidget<T>(win){}
+	~CursesWidgetTime(void){}
 
 	virtual void displayData(void)
 	{
-		std::vector<std::string> v = this->getModName().getData();
 		unsigned int lines;
 		unsigned int cols;
+		std::time_t time = this->getModName().getData();
+		tm *ltm = localtime(&time);
 
 		getmaxyx(this->getWin(), lines, cols);
+		unsigned int firstLine = ((lines - 1) / 2);
+		unsigned int firstCol =(cols - 25) / 2;
 
-		unsigned int firstLine = ((lines - v.size()) / 2);
-		// std::cout << "First line to write on : " << firstLine << std::endl;
 		box(this->getWin(), ACS_VLINE, ACS_HLINE);
-		for (size_t i = 0; i < v.size(); ++i)
-		{
-			// std::cout << v[i] << std::endl;
-			unsigned int firstCol = 1 + ((cols - v[i].size()) / 2);
-			// std::cout << "First line to write on : " << firstCol << std::endl;
-			
-			mvwaddstr(this->getWin(), firstLine, firstCol, v[i].c_str());
-			firstLine++;
-		}
+		mvwprintw(this->getWin(), firstLine, firstCol, "Time: %02d:%02d:%02d\t%02d/%02d/%d", ltm->tm_hour - 1, ltm->tm_min, ltm->tm_sec, ltm->tm_mday, ltm->tm_mon + 1, ltm->tm_year + 1900);
 	}
 
 private:
-	CursesWidgetText(void);
-	CursesWidgetText(CursesWidgetText const &rhs);
-	CursesWidgetText &operator=(CursesWidgetText const &src);
+	CursesWidgetTime(void);
+	CursesWidgetTime(CursesWidgetTime const &rhs);
+	CursesWidgetTime &operator=(CursesWidgetTime const &src);
 
 };
 

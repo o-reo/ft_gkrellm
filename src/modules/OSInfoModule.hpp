@@ -9,12 +9,13 @@
 class OSInfoModule : public AMonitorModule<std::string>
 {
   private:
+	OSInfoModule(OSInfoModule const &src);
+	OSInfoModule &operator=(OSInfoModule const &src);
+
   protected:
   public:
-	OSInfoModule();
-	OSInfoModule(OSInfoModule const &src);
-	~OSInfoModule();
-	OSInfoModule &operator=(OSInfoModule const &src);
+	OSInfoModule(){}
+	~OSInfoModule(){}
 	virtual std::string getData();
 };
 
