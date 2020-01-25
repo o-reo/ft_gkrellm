@@ -2,47 +2,70 @@
 
 SFMLDisplay::SFMLDisplay()
 {
+	Config *cfg = Config::get();
+	if (cfg->get()->getDisplay() != Config::DISPLAY_WINDOW)
+		return;
+
+	coords window_size(450, 1000);
+	this->_window.create(sf::VideoMode(window_size.x, window_size.y), "System Monitor");
+	this->_window.setFramerateLimit(10);
+
+	if (!this->font.loadFromFile("src/display/sfml/assets/arial.ttf"))
+		throw std::runtime_error("Could not load fonts");
 }
 
 SFMLDisplay::~SFMLDisplay()
 {
 }
 
+AWidget *SFMLDisplay::addWidget(Config::WIDGET_TYPE type)
+{
+	switch (type)
+	{
+	case Config::WIDGET_DATE:
+		return new SFMLWidgetClock<DateModule>(&this->_window, &this->font);
+		break;
+	case Config::WIDGET_HOST:
+		return new SFMLWidgetText<HostnameModule>(&this->_window, &this->font);
+		break;
+	case Config::WIDGET_OS:
+		return new SFMLWidgetText<OSInfoModule>(&this->_window, &this->font);
+		break;
+	case Config::WIDGET_RAM:
+		return new SFMLWidgetGauge<RamModule>(&this->_window, &this->font);
+		break;
+	case Config::WIDGET_CPUUSAGE:
+		return new SFMLWidgetGauge<CpuUsageModule>(&this->_window, &this->font);
+		break;
+	case Config::WIDGET_CPUINFO:
+		return new SFMLWidgetText<CpuInfoModule>(&this->_window, &this->font);
+		break;
+	default:
+		throw std::runtime_error("Unknown widget type");
+		return nullptr;
+		break;
+	}
+}
+
 void SFMLDisplay::render()
 {
-	coords window_size(450, 1200);
-	this->_window.create(sf::VideoMode(window_size.x, window_size.y), "System Monitor");
-	this->_window.setFramerateLimit(10);
+	Config *cfg = Config::get();
+	if (cfg->get()->getDisplay() != Config::DISPLAY_WINDOW)
+		return;
 
-	sf::Font font;
-	if (!font.loadFromFile("assets/arial.ttf"))
-		throw std::runtime_error("Could not load fonts");
-	sf::Text title("System Monitor", font, 24);
-	title.setPosition((window_size.x - (14 * 13)) / 2, 10);
+	unsigned int current_height = 0;
+	std::vector<Config::WIDGET_TYPE> wdg = cfg->getWidgets();
 
-	SFMLWidgetText<HostnameModule> hostText(&this->_window, &font);
-	hostText.setTopLeft(coords(0, 70));
-	hostText.setBottomRight(coords(450, 160));
-
-	SFMLWidgetClock<DateModule> date(&this->_window, &font);
-	date.setTopLeft(coords(0, 170));
-	date.setBottomRight(coords(450, 285));
-
-	// SFMLWidgetText<CpuInfoModule> cpuInfo(&this->_window, &font);
-	// cpuInfo.setTopLeft(coords(0, 170));
-	// cpuInfo.setBottomRight(coords(450, 285));
-
-	// SFMLWidgetText<OSInfoModule> osInfo(&this->_window, &font);
-	// osInfo.setTopLeft(coords(0, 295));
-	// osInfo.setBottomRight(coords(450, 460));
-
-	// SFMLWidgetGauge<CpuUsageModule> cpuUsage(&this->_window, &font);
-	// cpuUsage.setTopLeft(coords(0, 470));
-	// cpuUsage.setBottomRight(coords(450, 645));
-
-	// SFMLWidgetGauge<RamModule> ram(&this->_window, &font);
-	// ram.setTopLeft(coords(0, 655));
-	// ram.setBottomRight(coords(450, 720));
+	std::vector<AWidget *> widgets;
+	for (unsigned int i = 0; i < wdg.size(); i++)
+	{
+		current_height += 10;
+		AWidget *wd = this->addWidget(wdg[i]);
+		wd->setTopLeft(coords(0, current_height));
+		current_height += wd->getSize().y;
+		wd->setBottomRight(coords(450, current_height));
+		widgets.push_back(wd);
+	}
 
 	while (this->_window.isOpen())
 	{
@@ -51,13 +74,12 @@ void SFMLDisplay::render()
 		while (this->_window.pollEvent(event))
 		{
 		}
-		hostText.displayData();
-		date.displayData();
-		// cpuInfo.displayData();
-		// osInfo.displayData();
-		// cpuUsage.displayData();
-		// ram.displayData();
-		this->_window.draw(title);
+		for (unsigned int i = 0; i < widgets.size(); ++i)
+		{
+			widgets[i]->displayData();
+		}
 		this->_window.display();
 	}
+	for (unsigned int i = 0; i < widgets.size(); ++i)
+		delete widgets[i];
 }

@@ -25,15 +25,6 @@ template <class T> class SFMLWidgetGauge : public ASFMLWidget<T>
 
 		coords avail(this->getBottomRight().x - this->getTopLeft().x, this->getBottomRight().y - this->getTopLeft().y);
 
-		// Box
-		sf::RectangleShape border(sf::Vector2f(avail.x - 6, avail.y - 32));
-		border.setPosition(this->getTopLeft().x + 3, this->getTopLeft().y + 32);
-		border.setFillColor(sf::Color::Transparent);
-		border.setOutlineColor(sf::Color::White);
-		border.setOutlineThickness(1.0f);
-		this->getWin()->draw(border);
-
-		// self.;
 		this->_title.setPosition((avail.x - 12 * this->getModName().getName().size()) / 2, this->getTopLeft().y);
 		this->getWin()->draw(this->_title);
 
@@ -51,6 +42,16 @@ template <class T> class SFMLWidgetGauge : public ASFMLWidget<T>
 			gvalue.setPosition(this->getTopLeft().x + 8, this->getTopLeft().y + 35 + 36 * i);
 			this->getWin()->draw(gvalue);
 		}
+	}
+
+	virtual coords getSize()
+	{
+		std::vector<int> v = this->getModName().getData();
+
+		coords cds;
+		cds.y = 35 + 36 * v.size();
+		cds.x = this->getBottomRight().x - this->getTopLeft().x;
+		return cds;
 	}
 
   private:

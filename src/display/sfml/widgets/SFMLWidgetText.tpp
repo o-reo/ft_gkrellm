@@ -2,11 +2,11 @@
 #define SFMLWIDGETTEXT_HPP
 
 #include "ASFMLWidget.tpp"
-#include <vector>
-
+#include "coords.h"
 #include <iostream>
 #include <string>
 #include <utility>
+#include <vector>
 
 template <class T> class SFMLWidgetText : public ASFMLWidget<T>
 {
@@ -48,6 +48,15 @@ template <class T> class SFMLWidgetText : public ASFMLWidget<T>
 			this->_texts.back().setPosition(125, 35 + this->getTopLeft().y + 25 * i);
 			this->getWin()->draw(this->_texts.back());
 		}
+	}
+
+	virtual coords getSize()
+	{
+		std::vector<std::pair<std::string, std::string> > v = this->getModName().getData();
+		coords cds;
+		cds.y = 35 + 25 * v.size();
+		cds.x = this->getBottomRight().x - this->getTopLeft().x;
+		return cds;
 	}
 
   private:

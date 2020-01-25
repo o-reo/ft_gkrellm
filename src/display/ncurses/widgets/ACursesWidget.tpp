@@ -25,7 +25,7 @@
 
 
 template <class T>
-class ACursesWidget
+class ACursesWidget : public AWidget
 {
 public:
 	ACursesWidget(WINDOW *win) : _win(win){}

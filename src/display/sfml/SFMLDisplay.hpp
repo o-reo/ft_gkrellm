@@ -1,6 +1,7 @@
 #ifndef SFMLDISPLAY_HPP
 #define SFMLDISPLAY_HPP
 
+#include "Config.hpp"
 #include "CpuInfoModule.hpp"
 #include "CpuUsageModule.hpp"
 #include "DateModule.hpp"
@@ -19,14 +20,16 @@ class SFMLDisplay : public IMonitorDisplay
 {
   private:
 	sf::RenderWindow _window;
-
+	std::vector<AWidget *> widgets;
+	sf::Font font;
+	
   protected:
   public:
 	SFMLDisplay();
 	SFMLDisplay(SFMLDisplay const &src);
 	~SFMLDisplay();
 	SFMLDisplay &operator=(SFMLDisplay const &src);
-	// virtual void addWidget();
+	AWidget *addWidget(Config::WIDGET_TYPE);
 	void render();
 };
 
