@@ -22,15 +22,23 @@ void SFMLDisplay::render()
 
 	SFMLWidgetText<HostnameModule> hostText(&this->_window, &font);
 	hostText.setTopLeft(coords(0, 70));
-	hostText.setBottomRight(coords(400, 120));
+	hostText.setBottomRight(coords(450, 160));
 
 	SFMLWidgetText<CpuInfoModule> cpuInfo(&this->_window, &font);
-	cpuInfo.setTopLeft(coords(0, 130));
-	cpuInfo.setBottomRight(coords(400, 250));
+	cpuInfo.setTopLeft(coords(0, 170));
+	cpuInfo.setBottomRight(coords(450, 285));
 
 	SFMLWidgetText<OSInfoModule> osInfo(&this->_window, &font);
-	osInfo.setTopLeft(coords(0, 260));
-	osInfo.setBottomRight(coords(400, 340));
+	osInfo.setTopLeft(coords(0, 295));
+	osInfo.setBottomRight(coords(450, 460));
+
+	SFMLWidgetGauge<CpuUsageModule> cpuUsage(&this->_window, &font);
+	cpuUsage.setTopLeft(coords(0, 470));
+	cpuUsage.setBottomRight(coords(450, 645));
+
+	SFMLWidgetGauge<RamModule> ram(&this->_window, &font);
+	ram.setTopLeft(coords(0, 655));
+	ram.setBottomRight(coords(450, 720));
 
 	while (this->_window.isOpen())
 	{
@@ -42,6 +50,8 @@ void SFMLDisplay::render()
 		hostText.displayData();
 		cpuInfo.displayData();
 		osInfo.displayData();
+		cpuUsage.displayData();
+		ram.displayData();
 		this->_window.draw(title);
 		this->_window.display();
 	}

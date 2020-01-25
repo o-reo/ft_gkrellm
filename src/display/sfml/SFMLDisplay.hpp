@@ -4,8 +4,11 @@
 #include "IMonitorDisplay.hpp"
 #include "HostnameModule.hpp"
 #include "CpuInfoModule.hpp"
+#include "CpuUsageModule.hpp"
 #include "OSInfoModule.hpp"
+#include "RamModule.hpp"
 #include "widgets/SFMLWidgetText.tpp"
+#include "widgets/SFMLWidgetGauge.tpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>

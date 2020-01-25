@@ -18,7 +18,7 @@ RamModule::~RamModule()
 std::vector<int> RamModule::getData()
 {
 	std::vector<int> meminfo;
-	double unit = 1024 * 1024;
+	// double unit = 1024 * 1024;
 
 	// Total Memory
 	char buffer[1024];
@@ -28,7 +28,7 @@ std::vector<int> RamModule::getData()
 	std::istringstream tot_info(buffer);
 	int memsize;
 	tot_info >> memsize;
-	meminfo.push_back(*reinterpret_cast<long *>(buffer) / unit);
+	long total_ram = *reinterpret_cast<long *>(buffer);
 
 	// Used memory
 	int mib[6];
@@ -48,6 +48,6 @@ std::vector<int> RamModule::getData()
 		throw std::runtime_error("Error getting system statistics");
 
 	double total = vmstat.wire_count + vmstat.active_count + vmstat.inactive_count + vmstat.free_count;
-	meminfo.push_back(total * pagesize / unit);
+	meminfo.push_back(100.0f * (total * pagesize) / float(total_ram));
 	return meminfo;
 }
