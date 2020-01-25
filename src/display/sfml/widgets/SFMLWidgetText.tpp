@@ -22,7 +22,7 @@ template <class T> class SFMLWidgetText : public ASFMLWidget<T>
 	{
 		std::vector<std::pair<std::string, std::string> > v = this->getModName().getData();
 		coords avail(this->getBottomRight().x - this->getTopLeft().x, this->getBottomRight().y - this->getTopLeft().y);
-		
+
 		// Box
 		sf::RectangleShape border(sf::Vector2f(avail.x - 6, avail.y - 32));
 		border.setPosition(this->getTopLeft().x + 3, this->getTopLeft().y + 32);
@@ -30,7 +30,7 @@ template <class T> class SFMLWidgetText : public ASFMLWidget<T>
 		border.setOutlineColor(sf::Color::White);
 		border.setOutlineThickness(1.0f);
 		this->getWin()->draw(border);
-		
+
 		this->_texts.clear();
 		this->_texts.push_back(sf::Text(this->getModName().getName(), *(this->_font), 24));
 		this->_texts.back().setPosition((avail.x - 12 * this->getModName().getName().size()) / 2, this->getTopLeft().y);

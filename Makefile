@@ -12,7 +12,7 @@ RAW_SRC = main										\
 		modules/OSInfoModule						\
 		modules/CpuUsageModule						\
 		modules/CpuInfoModule						\
-		modules/DateModule							\
+		modules/DateModule
 
 
 SRC = $(addprefix src/, $(addsuffix .cpp, $(RAW_SRC)))

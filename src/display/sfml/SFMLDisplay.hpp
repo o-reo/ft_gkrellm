@@ -1,14 +1,16 @@
 #ifndef SFMLDISPLAY_HPP
 #define SFMLDISPLAY_HPP
 
-#include "IMonitorDisplay.hpp"
-#include "HostnameModule.hpp"
 #include "CpuInfoModule.hpp"
 #include "CpuUsageModule.hpp"
+#include "DateModule.hpp"
+#include "HostnameModule.hpp"
+#include "IMonitorDisplay.hpp"
 #include "OSInfoModule.hpp"
 #include "RamModule.hpp"
-#include "widgets/SFMLWidgetText.tpp"
+#include "widgets/SFMLWidgetClock.tpp"
 #include "widgets/SFMLWidgetGauge.tpp"
+#include "widgets/SFMLWidgetText.tpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>

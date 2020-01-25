@@ -22,6 +22,7 @@ template <class T> class SFMLWidgetGauge : public ASFMLWidget<T>
 	virtual void displayData(void)
 	{
 		std::vector<int> v = this->getModName().getData();
+
 		coords avail(this->getBottomRight().x - this->getTopLeft().x, this->getBottomRight().y - this->getTopLeft().y);
 
 		// Box
