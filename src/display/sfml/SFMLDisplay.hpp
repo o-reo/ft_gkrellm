@@ -9,9 +9,11 @@
 #include "IMonitorDisplay.hpp"
 #include "OSInfoModule.hpp"
 #include "RamModule.hpp"
+
 #include "widgets/SFMLWidgetClock.tpp"
 #include "widgets/SFMLWidgetGauge.tpp"
 #include "widgets/SFMLWidgetText.tpp"
+
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
@@ -30,7 +32,7 @@ class SFMLDisplay : public IMonitorDisplay
 	~SFMLDisplay();
 	SFMLDisplay &operator=(SFMLDisplay const &src);
 	AWidget *addWidget(Config::WIDGET_TYPE);
-	void render();
+	virtual void render();
 };
 
 #endif

@@ -1,6 +1,8 @@
 #ifndef AWIDGET_HPP
 # define AWIDGET_HPP
 
+#include "coords.h"
+
 class AWidget
 {
 private:
