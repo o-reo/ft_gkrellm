@@ -20,7 +20,7 @@
 #include <iostream>
 
 #include "coords.h"
-
+#include "AWidget.hpp"
 #include <ncurses.h>
 
 
@@ -28,8 +28,8 @@ template <class T>
 class ACursesWidget : public AWidget
 {
 public:
-	ACursesWidget(coords tl, coords br) : _topLeft(tl), _bottomRight(br){}
-	~ACursesWidget(void){/*delwin(this->_win);*/}
+	ACursesWidget(void){}
+	virtual ~ACursesWidget(void){}
 
 	void setTopLeft(coords const newCoord)
 	{
@@ -61,7 +61,6 @@ public:
 	virtual coords getSize() = 0;
 
 private:
-	ACursesWidget(void);
 	ACursesWidget(ACursesWidget const &rhs);
 	ACursesWidget &operator=(ACursesWidget const &src);
 

@@ -10,11 +10,11 @@ private:
 	AWidget &operator=(AWidget const &src);
 protected:
 public:
-	AWidget() {};
-	virtual ~AWidget() {};
-	virtual void displayData() {};
-	virtual void setTopLeft(coords) {};
-	virtual void setBottomRight(coords) {};
+	AWidget() {}
+	virtual ~AWidget() {}
+	virtual void displayData() = 0;
+	virtual void setTopLeft(coords) = 0;
+	virtual void setBottomRight(coords) = 0;
 	virtual coords getSize() = 0;
 };
 

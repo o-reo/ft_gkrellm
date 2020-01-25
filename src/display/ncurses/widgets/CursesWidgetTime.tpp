@@ -24,24 +24,20 @@ template <class T>
 class CursesWidgetTime : public ACursesWidget<T>
 {
 public:
-	CursesWidgetTime(coords tl, coords br) : ACursesWidget<T>(tl, br){}
+	CursesWidgetTime(void){}
 	~CursesWidgetTime(void){}
 
 	virtual void displayData(void)
 	{
-		unsigned int lines = this->getBottomRight().y - this->getTopLeft().y;
-		unsigned int cols = this->getBottomRight().x - this->getTopLeft().x;
+		unsigned int lines = 7;
+		unsigned int cols = 40;
 		
 		WINDOW *win = subwin(stdscr, lines, cols, this->getTopLeft().y, this->getTopLeft().x);
 		box(win, ACS_VLINE, ACS_HLINE);
 		std::time_t time = this->getModName().getData();
 		tm *ltm = localtime(&time);
-
-		// getmaxyx(this->getWin(), lines, cols);
 		unsigned int firstLine = ((lines - 1) / 2);
-		unsigned int firstCol =(cols - 25) / 2;
-
-		// mvwprintw(win, 0, 0, "%u %u %u", this->getTopLeft().x, cols, firstCol);
+		unsigned int firstCol = (cols - 25) / 2;
 		mvwprintw(win, firstLine, firstCol, "Time: %02d:%02d:%02d\t%02d/%02d/%d", ltm->tm_hour - 1, ltm->tm_min, ltm->tm_sec, ltm->tm_mday, ltm->tm_mon + 1, ltm->tm_year + 1900);
 		delwin(win);
 	}
@@ -52,7 +48,6 @@ public:
 	}
 
 private:
-	CursesWidgetTime(void);
 	CursesWidgetTime(CursesWidgetTime const &rhs);
 	CursesWidgetTime &operator=(CursesWidgetTime const &src);
 

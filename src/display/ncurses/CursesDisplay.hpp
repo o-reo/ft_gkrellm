@@ -3,6 +3,9 @@
 
 #include "IMonitorDisplay.hpp"
 
+#include "AWidget.hpp"
+#include "Config.hpp"
+
 class CursesDisplay : public IMonitorDisplay {
 private:
   CursesDisplay(CursesDisplay const &src);
@@ -13,6 +16,7 @@ public:
   CursesDisplay();
   ~CursesDisplay();
   void render(void);
+  AWidget *addWidget(Config::WIDGET_TYPE type);
   // virtual void addWidget()
 };
 

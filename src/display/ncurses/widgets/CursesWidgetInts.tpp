@@ -25,37 +25,41 @@ template <class T>
 class CursesWidgetInts : public ACursesWidget<T>
 {
 public:
-	CursesWidgetInts(coords tl, coords br) : ACursesWidget<T>(tl, br){}
+	CursesWidgetInts(void){}
 	~CursesWidgetInts(void){}
 
 	virtual void displayData(void)
 	{
+		std::vector<int> v = this->getModName().getData();
 
-		unsigned int lines = this->getBottomRight().y - this->getTopLeft().y;
-		unsigned int cols = this->getBottomRight().x - this->getTopLeft().x;
+		unsigned int lines = 2 * v.size() + 3;
+		unsigned int cols = 40;
+		if (lines < 7)
+			lines = 7;
+
 		WINDOW *win = subwin(stdscr, lines, cols, this->getTopLeft().y, this->getTopLeft().x);
 		box(win, ACS_VLINE, ACS_HLINE);
-(void)cols;
-		std::vector<int> v = this->getModName().getData();
 
 		unsigned int firstLine = ((lines - v.size()) / 2);
 		std::string name = this->getModName().getName();
 		unsigned int firstCol = 1 + ((40 - name.size()) / 2);
-		// mvwprintw(this->getWin(), 1, firstCol, "%s", name.c_str());
-		firstCol = 1 + ((40 - 30) / 2);
+		mvwprintw(win, 1, firstCol, "%s", name.c_str());
+		firstCol = 6;
 		for (size_t i = 0; i < v.size(); ++i)
 		{
-			unsigned squares = v[i] - (v[i] % 3) + ((v[i] % 3) >= 2 ? 3 : 0);
+			unsigned squares = (v[i] / 3) - (v[i] % 3) + ((v[i] % 3) >= 2 ? 3 : 0);
 			squares = (squares > 30) ? 30 : squares;
-			// wattron(this->getWin(), COLOR_PAIR(1));
-				// for (size_t sq = 0; sq < squares; sq++)
-					// mvwprintw(this->getWin(), firstLine, firstCol + sq, " ");
-			// wattron(this->getWin(), COLOR_PAIR(2));
-				// for (size_t sq = squares; sq < 30; sq++)
-					// mvwprintw(this->getWin(), firstLine, firstCol + sq, " ");
-			// wattroff(this->getWin(), COLOR_PAIR(1));
+			wattron(win, COLOR_PAIR(1));
+			for (size_t sq = 0; sq < squares; sq++)
+				mvwprintw(win, firstLine, firstCol + sq, " ");
+			wattroff(win, COLOR_PAIR(1));
+			wattron(win, COLOR_PAIR(2));
+			for (size_t sq = squares; sq < 30; sq++)
+				mvwprintw(win, firstLine, firstCol + sq, " ");
+			wattroff(win, COLOR_PAIR(2));
 			firstLine += 2;
 		}
+		delwin(win);
 	}
 
 	virtual coords getSize(void)
@@ -63,14 +67,13 @@ public:
 		std::vector<int> v = this->getModName().getData();
 		coords size;
 		size.x = 40;
-		size.y = 2 * v.size() + 1;
+		size.y = 2 * v.size() + 3;
 		if (size.y < 7)
 			size.y = 7;
 		return (size);
 	}
 
 private:
-	CursesWidgetInts(void);
 	CursesWidgetInts(CursesWidgetInts const &rhs);
 	CursesWidgetInts &operator=(CursesWidgetInts const &src);
 
