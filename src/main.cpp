@@ -14,45 +14,14 @@
 // #include "Logger.hpp"
 // #include "Monitor.hpp"
 
-#include "CursesWidgetText.tpp"
-#include "CursesWidgetTime.tpp"
-#include "CursesWidgetInts.tpp"
-#include "CursesWidgetStr.tpp"
+#include "CursesDisplay.hpp"
 
-#include "HostnameModule.hpp"
-#include "DateModule.hpp"
-#include "CpuUsageModule.hpp"
-#include "OSInfoModule.hpp"
 
-#include "coords.h"
 
-#include <ncurses.h>
 
 int main(void)
 {
-	initscr();
-
-	curs_set(0);
-	noecho();
-	clear();
-
-	std::vector<WINDOW*> v;
-
-	v.push_back(subwin(stdscr, 7, 40, 0, 0));
-	v.push_back(subwin(stdscr, 7, 40, 7, 0));
-	v.push_back(subwin(stdscr, 7, 40, 14, 0));
-	v.push_back(subwin(stdscr, 7, 40, 21, 0));
-
-	// CursesWidgetText<HostnameModule> mod(v[0]);
-	CursesWidgetTime<DateModule> mod2(v[1]);
-	CursesWidgetInts<CpuUsageModule> mod3(v[2]);
-	// CursesWidgetStr<OSInfoModule> mod4(v[3]);
-
-	// mod.displayData();
-	mod2.displayData();
-	mod3.displayData();
-	// mod4.displayData();
-	getch();
-	endwin();
+	CursesDisplay cursesDisp;
+	cursesDisp.render();
 	return (0);
 }

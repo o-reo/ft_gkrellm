@@ -12,6 +12,7 @@ protected:
 public:
   CursesDisplay();
   ~CursesDisplay();
+  void render(void);
   // virtual void addWidget()
 };
 

@@ -27,7 +27,7 @@ template <class T>
 class CursesWidgetStr : public ACursesWidget<T>
 {
 public:
-	CursesWidgetStr(WINDOW *win) : ACursesWidget<T>(win){}
+	CursesWidgetStr(coords tl, coords br) : _topleft(tl), _bottomright(br){}
 	~CursesWidgetStr(void){}
 
 	virtual void displayData(void)

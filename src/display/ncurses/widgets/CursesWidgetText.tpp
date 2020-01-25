@@ -14,7 +14,6 @@
 #ifndef CURSESWIDGETTEXT_TPP
 # define CURSESWIDGETTEXT_TPP
 
-// #include "HostnameModule.hpp"
 
 #include "ACursesWidget.tpp"
 #include <vector>
@@ -27,29 +26,40 @@ template <class T>
 class CursesWidgetText : public ACursesWidget<T>
 {
 public:
-	CursesWidgetText(WINDOW *win) : ACursesWidget<T>(win){}
+	CursesWidgetText(coords tl, coords br) : ACursesWidget<T>(tl, br){}
 	~CursesWidgetText(void){}
 
 	virtual void displayData(void)
 	{
-		std::vector<std::string> v = this->getModName().getData();
-		unsigned int lines;
-		unsigned int cols;
+		unsigned int lines = this->getBottomRight().y - this->getTopLeft().y;
+		unsigned int cols = this->getBottomRight().x - this->getTopLeft().x;
 
-		getmaxyx(this->getWin(), lines, cols);
+		// getmaxyx(this->getWin(), lines, cols);
+		std::vector<std::pair<std::string, std::string> > v = this->getModName().getData();
 
-		unsigned int firstLine = ((lines - v.size()) / 2);
-		// std::cout << "First line to write on : " << firstLine << std::endl;
-		box(this->getWin(), ACS_VLINE, ACS_HLINE);
+		unsigned int firstLine = ((lines - v.size()) / 2) + 1;
+		// box(this->getWin(), ACS_VLINE, ACS_HLINE);
+
+		std::string name = this->getModName().getName();
+		unsigned int firstCol = 1 + ((cols - name.size()) / 2);
+		// mvwprintw(this->getWin(), 1, firstCol, "%s", name.c_str());
 		for (size_t i = 0; i < v.size(); ++i)
 		{
-			// std::cout << v[i] << std::endl;
-			unsigned int firstCol = 1 + ((cols - v[i].size()) / 2);
-			// std::cout << "First line to write on : " << firstCol << std::endl;
-			
-			mvwaddstr(this->getWin(), firstLine, firstCol, v[i].c_str());
+			firstCol = (this->getModName().getName() == "Host Details") ? 10 : 1;
+			// mvwprintw(this->getWin(), firstLine, firstCol, "%s : %s", v[i].first.c_str(), v[i].second.c_str());
 			firstLine++;
 		}
+	}
+
+	virtual coords getSize(void)
+	{
+		std::vector<std::pair<std::string, std::string> > v = this->getModName().getData();
+		coords size;
+		size.x = 40;
+		size.y = v.size() + 2;
+		if (size.y < 7)
+			size.y = 7;
+		return (size);
 	}
 
 private:

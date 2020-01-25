@@ -28,49 +28,46 @@ template <class T>
 class ACursesWidget
 {
 public:
-	ACursesWidget(WINDOW *win) : _win(win){}
-	~ACursesWidget(void){free(this->_win);}
+	ACursesWidget(coords tl, coords br) : _topLeft(tl), _bottomRight(br){}
+	~ACursesWidget(void){/*delwin(this->_win);*/}
 
-	virtual void displayData(void) = 0;
-
-	void setTopleft(coords const newCoord)
+	void setTopLeft(coords const newCoord)
 	{
 		this->_topLeft = newCoord;
 	}
 
-	void setBottomright(coords const newCoord)
+	void setBottomRight(coords const newCoord)
 	{
 		this->_bottomRight = newCoord;
 	}
 
-	// coords getTopLeft(void) const
-	// {
-	// 	return (this->_topLeft);
-	// }
+	coords getTopLeft(void) const
+	{
+		return (this->_topLeft);
+	}
 
-	// coords getBottomRight(void) const
-	// {
-	// 	return ();
-	// }
+	coords getBottomRight(void) const
+	{
+		return (this->_bottomRight);
+	}
+
+	virtual void displayData(void) = 0;
 
 	T	&getModName(void)
 	{
 		return (this->_modName);
 	}
 
-	WINDOW *getWin(void)
-	{
-		return (this->_win);
-	}
-
+	virtual coords getSize() = 0;
 
 private:
 	ACursesWidget(void);
 	ACursesWidget(ACursesWidget const &rhs);
 	ACursesWidget &operator=(ACursesWidget const &src);
 
-	T		_modName;
-	WINDOW	*_win;
+	T			_modName;
+	coords		_topLeft;
+	coords		_bottomRight;
 };
 
 #endif
