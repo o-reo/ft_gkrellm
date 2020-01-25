@@ -73,6 +73,8 @@ void SFMLDisplay::render()
 		sf::Event event;
 		while (this->_window.pollEvent(event))
 		{
+			if (event.type == sf::Event::Closed)
+				this->_window.close();
 		}
 		for (unsigned int i = 0; i < widgets.size(); ++i)
 		{
