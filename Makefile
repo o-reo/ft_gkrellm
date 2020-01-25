@@ -11,7 +11,9 @@ RAW_SRC = main										\
 		core/Monitor								\
 		modules/OSInfoModule						\
 		modules/CpuUsageModule						\
-		modules/DateModule
+		modules/CpuInfoModule						\
+		modules/DateModule							\
+
 
 SRC = $(addprefix src/, $(addsuffix .cpp, $(RAW_SRC)))
 OBJ = $(addprefix build/, $(addsuffix .o, $(RAW_SRC)))

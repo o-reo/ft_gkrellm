@@ -21,11 +21,11 @@ template <class T> class SFMLWidgetText : public ASFMLWidget<T>
 	virtual void displayData(void)
 	{
 		std::vector<std::pair<std::string, std::string> > v = this->getModName().getData();
-		coords avail(this->getBottomRight().x - this->getTopLeft().x, this->getBottomRight().y - this->getTopLeft().y);
+		// coords avail(this->getBottomRight().x - this->getTopLeft().x, this->getBottomRight().y - this->getTopLeft().y);
 		
 		this->_texts.clear();
 		this->_texts.push_back(sf::Text(this->getModName().getName(), *(this->_font), 24));
-		for (int i = 0; i < v.size(); ++i)
+		for (unsigned int i = 0; i < v.size(); ++i)
 		{
 			// Label
 			this->_texts.push_back(sf::Text(v[i].first, *(this->_font), 22));
@@ -34,6 +34,7 @@ template <class T> class SFMLWidgetText : public ASFMLWidget<T>
 
 			// Value
 			this->_texts.push_back(sf::Text(v[i].second, *(this->_font), 22));
+			std::cout << v[i].second << std::endl;
 			this->_texts.back().setPosition(80, this->getTopLeft().y + 25 * i);
 			this->getWin()->draw(this->_texts.back());
 		}

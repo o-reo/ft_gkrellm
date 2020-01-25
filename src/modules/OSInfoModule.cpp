@@ -5,6 +5,10 @@ OSInfoModule::OSInfoModule() : AMonitorModule("OS Details")
 {
 }
 
+OSInfoModule::~OSInfoModule()
+{
+}
+
 std::vector<std::pair<std::string, std::string> > OSInfoModule::getData()
 {
 	utsname sysinf;

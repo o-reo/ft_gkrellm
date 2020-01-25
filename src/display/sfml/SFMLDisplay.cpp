@@ -11,8 +11,7 @@ SFMLDisplay::~SFMLDisplay()
 void SFMLDisplay::render()
 {
 	coords window_size(450, 1200);
-	this->_window.create(sf::VideoMode(window_size.x, window_size.y), "System Monitor",
-						 sf::Style::Close | sf::Style::Titlebar);
+	this->_window.create(sf::VideoMode(window_size.x, window_size.y), "System Monitor");
 	this->_window.setFramerateLimit(10);
 
 	sf::Font font;
@@ -28,16 +27,21 @@ void SFMLDisplay::render()
 	SFMLWidgetText<CpuInfoModule> cpuInfo(&this->_window, &font);
 	cpuInfo.setTopLeft(coords(0, 130));
 	cpuInfo.setBottomRight(coords(400, 250));
-	
+
+	SFMLWidgetText<OSInfoModule> osInfo(&this->_window, &font);
+	osInfo.setTopLeft(coords(0, 260));
+	osInfo.setBottomRight(coords(400, 340));
 
 	while (this->_window.isOpen())
 	{
 		this->_window.clear(sf::Color::Black);
 		sf::Event event;
 		while (this->_window.pollEvent(event))
-		{}
+		{
+		}
 		hostText.displayData();
 		cpuInfo.displayData();
+		osInfo.displayData();
 		this->_window.draw(title);
 		this->_window.display();
 	}
